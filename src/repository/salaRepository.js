@@ -20,6 +20,6 @@ export async function buscarSalaPorId(salaId) {
    `;
 
    const [info] = await connection.query(comando, salaId);
-   return info.insertId;
+   return info[0];
 }
 

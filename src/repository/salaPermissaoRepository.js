@@ -13,7 +13,7 @@ export async function inserirPermissao(salaId, usuarioId, aprovado) {
 
 export async function aprovarPermissao(salaId, usuarioId) {
     const comando = `
-        update from salaPermissao
+        update salaPermissao
             set aprovado = true
             where sala_id = ? and usuario_id = ?;
     `
@@ -25,11 +25,11 @@ export async function aprovarPermissao(salaId, usuarioId) {
 
 export async function verificarPermissaoSala(salaId, usuarioId) {
     const comando = `
-        select aprovado
+        select *
             from salaPermissao
-            where sala_id = ? and usuario_id = ?;
+            where sala_id = ? and usuario_id = ? and aprovado = true;
     `;
 
     const [info] = await connection.query(comando, [salaId, usuarioId]);
-    return info;
+    return info[0];
 }
